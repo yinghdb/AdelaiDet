@@ -6,6 +6,7 @@ import torch.nn.functional as F
 from detectron2.layers import cat
 from detectron2.structures import Instances, Boxes
 from detectron2.utils.comm import get_world_size
+from detectron2.structures.masks import PolygonMasks, polygons_to_bitmask
 from fvcore.nn import sigmoid_focal_loss_jit
 
 from adet.utils.comm import reduce_sum, reduce_mean, compute_ious
@@ -71,6 +72,9 @@ class FCOSOutputs(nn.Module):
 
         self.num_classes = cfg.MODEL.FCOS.NUM_CLASSES
         self.strides = cfg.MODEL.FCOS.FPN_STRIDES
+
+        # whether target location should be inside mask
+        self.sample_in_mask = cfg.MODEL.EMBEDMASK.SAMPLE_IN_MASK
 
         # generate sizes of interest
         soi = []
@@ -244,6 +248,13 @@ class FCOSOutputs(nn.Module):
             locations_to_gt_area = area[None].repeat(len(locations), 1)
             locations_to_gt_area[is_in_boxes == 0] = INF
             locations_to_gt_area[is_cared_in_the_level == 0] = INF
+            if self.sample_in_mask:
+                masks_full = targets_per_im.get("gt_bitmasks_full").to(device=locations.device)
+                masks_full = masks_full.permute(1, 2, 0) # h, w, n
+                masks = masks_full.new_zeros((masks_full.shape[0]+64, masks_full.shape[1]+64, masks_full.shape[2])) 
+                masks[:masks_full.shape[0], :masks_full.shape[1], :] = masks_full
+                mask_targets = masks[ys.long(), xs.long()]
+                locations_to_gt_area[mask_targets == 0] = INF
 
             # if there are still more than one objects for a location,
             # we choose the one with minimal area

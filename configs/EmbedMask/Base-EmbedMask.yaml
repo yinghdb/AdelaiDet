@@ -1,0 +1,31 @@
+MODEL:
+  META_ARCHITECTURE: "EmbedMask"
+  MASK_ON: True
+  BACKBONE:
+    NAME: "build_fcos_resnet_fpn_backbone"
+  RESNETS:
+    OUT_FEATURES: ["res3", "res4", "res5"]
+  FPN:
+    IN_FEATURES: ["res3", "res4", "res5"]
+  PROPOSAL_GENERATOR:
+    NAME: "FCOS"
+  FCOS:
+    THRESH_WITH_CTR: True
+    USE_SCALE: True
+  EMBEDMASK:
+    MAX_PROPOSALS: 500
+    MARGIN_REDUCE_FACTOR: 32.0
+    MASK_LOSS_TYPE: "Lovasz"
+    PROPOSAL_HEAD: "Conv1_Conv3"
+    MASK_BRANCH:
+      SEMANTIC_LOSS_ON: True
+DATASETS:
+  TRAIN: ("coco_2017_train",)
+  TEST: ("coco_2017_val",)
+SOLVER:
+  IMS_PER_BATCH: 16
+  BASE_LR: 0.01
+  STEPS: (60000, 80000)
+  MAX_ITER: 90000
+INPUT:
+  MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800)
