@@ -10,8 +10,16 @@
 ## Installation
 This EmbedMask implementation is based on [AdelaiDet](https://github.com/aim-uofa/AdelaiDet), which is also on top of [Detectron2](https://github.com/facebookresearch/detectron2). 
 
-First, follow the [default instruction](../../README.md#Installation) to install the project and [datasets/README.md](https://github.com/facebookresearch/detectron2/blob/master/datasets/README.md) 
-set up the datasets (e.g., MS-COCO).
+First install Detectron2 following the official guide: INSTALL.md[https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md].
+Then build AdelaiDet with:
+
+```
+git clone https://github.com/yinghdb/AdelaiDet.git
+cd AdelaiDet
+python setup.py build develop
+```
+
+Then, follow [datasets/README.md](https://github.com/facebookresearch/detectron2/blob/master/datasets/README.md) to set up the datasets (e.g., MS-COCO).
 
 ## Pretrained Models
 The pretrained models can be downloaded from [here](https://1drv.ms/u/s!Al_gruIFwTUskjUekAWxezmkUnZf?e=c9Ymn0). And you should place them in the 'models' directory.
