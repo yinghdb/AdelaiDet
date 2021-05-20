@@ -51,8 +51,8 @@ OMP_NUM_THREADS=1 python tools/train_net.py \
 
 Name | box AP (val) | mask AP (val) | box AP (test-dev) | mask AP (test-dev) 
 --- |:---:|:---:|:---:|:---:
-[EmbedMask_MS_R_50_1x] | 39.9 | 36.2 | 40.1 | 36.3
-[EmbedMask_MS_R_101_3x] | 44.2 | 39.5 | 44.6 | 40.0 
+EmbedMask_MS_R_50_1x | 39.9 | 36.2 | 40.1 | 36.3
+EmbedMask_MS_R_101_3x | 44.2 | 39.5 | 44.6 | 40.0 
 
 ## Notation
 
