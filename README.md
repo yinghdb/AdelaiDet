@@ -10,7 +10,7 @@
 ## Installation
 This EmbedMask implementation is based on [AdelaiDet](https://github.com/aim-uofa/AdelaiDet), which is also on top of [Detectron2](https://github.com/facebookresearch/detectron2). 
 
-First install Detectron2 following the official guide: INSTALL.md[https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md].
+First install Detectron2 following the official guide: INSTALL.md(https://github.com/facebookresearch/detectron2/blob/master/INSTALL.md).
 Then build AdelaiDet with:
 
 ```
