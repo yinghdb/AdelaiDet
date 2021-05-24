@@ -4,7 +4,6 @@ from torch import nn
 from torch.autograd import Variable
 
 from adet.utils.comm import compute_locations, aligned_bilinear
-from adet.layers import mask_prob_efficient
 
 def dice_coefficient(x, target):
     eps = 1e-5
